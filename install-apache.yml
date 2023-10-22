@@ -1,0 +1,30 @@
+---
+- name: "Apache Installation"
+  hosts: rec-apache-1
+  tasks:
+    - name: "Install apache package"
+      ansible.builtin.dnf:
+        name: "httpd"
+        state: "present"
+
+    - name: "Start apache service"
+      ansible.builtin.service:
+        name: "httpd"
+        state: "started"
+        enabled: true
+
+    - name: "Firewall configuration"
+      ansible.posix.firewalld:
+        service: "http"
+        permanent: true
+        state: "enabled"
+
+    - name: "Copy test.html"
+      ansible.builtin.copy:
+        src: "test.html"
+        dest: "/var/www/html"
+        owner: "apache"
+        group: "apache"
+        mode: "0644"
+erreur
+
