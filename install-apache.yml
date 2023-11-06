@@ -1,6 +1,7 @@
 ---
 - name: "Apache Installation"
   hosts: rec-apache-1
+  become: true
   tasks:
     - name: "Install apache package"
       ansible.builtin.dnf:
